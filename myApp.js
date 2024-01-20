@@ -2,6 +2,7 @@ require('dotenv').config();
 
 let express = require('express');
 let app = express();
+let bodyParser = require('body-parser');
 
 // Static asset middleware
 app.use(express.static(__dirname + "/public"));
@@ -37,8 +38,14 @@ app.get("/:word/echo", (req, res) => {
 });
 
 // Name - API endpoint
-app.route("/name").get((req, res) => {
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.route("/name")
+.get((req, res) => {
     res.json({"name": `${req.query.first} ${req.query.last}`});
+})
+.post((req, res) => {
+    //
 });
 
 console.log("Hello World");
