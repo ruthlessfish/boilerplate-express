@@ -31,6 +31,11 @@ app.get("/json", (req, res) => {
     res.json({"message": (process.env.MESSAGE_STYLE == "uppercase" ? msg.toUpperCase() : msg)});
 });
 
+// Echo Server
+app.get("/:word/echo", (req, res) => {
+    res.json({"echo": req.params.word});
+});
+
 console.log("Hello World");
 
 
