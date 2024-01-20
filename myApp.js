@@ -17,6 +17,15 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/views/index.html");
 });
 
+// Time Server
+app.get("/now", (req, res, next) => {
+    req.time = new Date().toString();
+    next();
+},
+(req, res) => {
+    res.json({time: req.time});
+});
+
 app.get("/json", (req, res) => {
     let msg = "Hello json";
     res.json({"message": (process.env.MESSAGE_STYLE == "uppercase" ? msg.toUpperCase() : msg)});
