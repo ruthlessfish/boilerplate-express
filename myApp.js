@@ -3,8 +3,15 @@ require('dotenv').config();
 let express = require('express');
 let app = express();
 
+// Static asset middleware
 app.use(express.static(__dirname + "/public"));
 app.use("/public", express.static(__dirname + "/public"));
+
+//Root Level Request Logger Middleware
+app.use((req, res, next) => {
+    console.log(req.method + " " + req.path + " - " + req.ip);
+    next();
+});
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/views/index.html");
